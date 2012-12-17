@@ -20,33 +20,33 @@ def downcode(url):
 def movecode(f):
     """本地打开图片并移动到指定目录"""
     img=Image.open(f)
-    img.save(dir+'tmp.jpg')
+    img.convert('RGB').save(dir+'tmp.jpg')
 
 def grey():
     """灰度化"""
     img=Image.open(dir+'tmp.jpg')
     img.convert('L').save(dir+'1.jpg')
 
-def binary():
+def binary(r=90,g=130,b=0):
     """二值化"""
     img = Image.open(dir+'tmp.jpg')
     #img = img.convert('1')
     pixdata = img.load()
     for y in range(img.size[1]):
         for x in range(img.size[0]):
-            if pixdata[x, y][0] < 90:
+            if pixdata[x, y][0] < r:
                 pixdata[x, y] = (0, 0, 0, 255)
     for y in range(img.size[1]):
         for x in range(img.size[0]):
-            if pixdata[x, y][1] < 136:
+            if pixdata[x, y][1] < g:
                 pixdata[x, y] = (0, 0, 0, 255)
     for y in range(img.size[1]):
         for x in range(img.size[0]):
-            if pixdata[x, y][2] > 0:
+            if pixdata[x, y][2] > b:
                 pixdata[x, y] = (255, 255, 255, 255)
     img.save(dir+'2.jpg')
 
-def denoisepoint(n):
+def denoisepoint(n,opt_point=0):
     """去噪点"""
     direct=[[1,1],[1,0],[1,-1],[0,-1],
             [-1,-1],[-1,0],[-1,1],[0,1]]
@@ -65,7 +65,7 @@ def denoisepoint(n):
                     #如果遇到边界外的点不处理
                         if pix[x+a,y+b][0]<n:
                             nearpoint+=1
-                if nearpoint==0:
+                if nearpoint<=opt_point:
                     pix[x,y]=(255, 255, 255, 255)
                     point+=1
     img.save(dir+'3.jpg')
@@ -83,7 +83,7 @@ def devide(n):
         for y in range(img.size[1]):
             if pix[x,y][0]<90:
                 flagx[x]+=1
-    print flagx
+    #print flagx
     for i in range(img.size[0]):
         if flagx[i]>n and flagx[i-1]<=n:
             tmp=i
@@ -94,7 +94,7 @@ def devide(n):
                 for x in range(i+1)[tmp:]:
                     if pix[x,y][0]<90:
                         flagy[y]+=1
-            print flagy
+            #print flagy
             ttmp=0
             #有待改善
             bug=1
@@ -104,6 +104,7 @@ def devide(n):
                 if flagy[j-1]>n and flagy[j]<=n:
                     result.append([tmp,i,ttmp,j])
                     bug=0
+                    break
             if bug==1:
                 result.append([tmp,i,ttmp,img.size[1]])
     #print result
