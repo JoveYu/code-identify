@@ -64,7 +64,7 @@ class Main(wx.Frame):
         text_6=wx.StaticText(self,-1,'分割模式',pos=(560,250))
 
         #文本框
-        self.url=wx.TextCtrl(self,-1,'http://www.ruanko.com/validateImage.jsp',pos=(200,40),size=(330,25))
+        self.url=wx.TextCtrl(self,-1,'http://system.ruanko.com/validateImage.jsp',pos=(200,40),size=(330,25))
         self.db=wx.TextCtrl(self,-1,'显示字库路径',pos=(200,370),size=(250,25))
         self.char1=wx.TextCtrl(self,-1,'?',pos=(130,340),size=(25,25))
         self.char2=wx.TextCtrl(self,-1,'?',pos=(214,340),size=(25,25))
