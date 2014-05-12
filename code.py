@@ -3,7 +3,8 @@
 #
 # Author:   Jove Yu <yushijun110@gmail.com>
 #
-import os, Image, urllib
+import os, urllib
+from PIL import Image
 
 dir="./tmp/"
 
