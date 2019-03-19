@@ -4,4 +4,4 @@
 
 项目采用python编写，wxpython编写图形界面，PIL处理图片，理论上完美实现跨平台！
 
-BLOG：JoveSky.com
+发表论文  http://www.cqvip.com/QK/94352X/201310/48071012.html
